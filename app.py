@@ -175,9 +175,10 @@ if prompt:
 if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
     user_query = st.session_state.messages[-1]["content"]
 
+    
     if not st.session_state.agent:
         with st.chat_message("assistant"):
-            st.error("Agent is not initialized. Please ensure `GOOGLE_API_KEY` is configured in `.env` or in the sidebar.")
+            st.error(f"Agent init failed: {st.session_state.get('init_error', 'unknown')}")
     else:
         with st.chat_message("assistant"):
             tool_steps = []
