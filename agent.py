@@ -57,6 +57,22 @@ def build_news_agent(
     system_prompt: str = DEFAULT_SYSTEM_PROMPT,
     checkpointer: Optional[MemorySaver] = None
 ):
+
+    # 1. Look for manual input, then Streamlit Secrets, then local environment variables
+    import streamlit as st
+    
+    key = api_key
+    if not key and "GOOGLE_API_KEY" in st.secrets:
+        key = st.secrets["GOOGLE_API_KEY"]
+    if not key:
+        key = os.getenv("GOOGLE_API_KEY")
+        
+    if not key:
+        raise ValueError(
+            "Google API Key not found. Please set GOOGLE_API_KEY in your secrets "
+            "or provide it through the interface."
+        )
+    
     """
     Builds and returns a compiled LangGraph ReAct agent with:
     - Google Gemini Chat model

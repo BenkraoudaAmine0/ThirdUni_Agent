@@ -10,14 +10,14 @@ from dotenv import load_dotenv
 
 from agent import build_news_agent, run_agent_turn, extract_message_text
 
-# Page Configuration
-st.set_page_config(
-    page_title="AI News Agent | Intelligent Tech Briefing",
-    page_icon="📰",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+# 1. Load the local environment setup first (safely falls back if missing)
+load_dotenv()
 
+# 2. Bind Streamlit Secrets directly over environment tracking if present
+if "GOOGLE_API_KEY" in st.secrets:
+    os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+
+    
 # Custom Styling
 st.markdown("""
 <style>
