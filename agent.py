@@ -34,7 +34,7 @@ Guidelines:
 4. Professional Tone: Maintain an objective, engaging, and tech-savvy journalistic voice.
 """
 
-DEFAULT_MODEL_NAME = "gemini-2.5-flash"
+DEFAULT_MODEL_NAME = "gemini-3.5-flash-lite"
 
 
 def extract_message_text(content: Any) -> str:
